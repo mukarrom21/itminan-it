@@ -8,20 +8,27 @@ jobs:
     runs-on: ubuntu-latest
     name: build&deploy
     steps:
+      # Use the latest version of actions/checkout which supports Node.js 20
       - name: Checkout
-        uses: actions/checkout@v3 # Ensure latest version
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # Ensures the entire history is fetched if needed
 
+      # Explicitly set up Node.js 20
       - name: Setup Node.js 20
         uses: actions/setup-node@v3
         with:
           node-version: '20'
 
+      # Install dependencies
       - name: Install Dependencies
         run: yarn
 
+      # Build the project
       - name: Build
         run: yarn build
 
+      # Deploy file to server using SFTP Deploy Action
       - name: Deploy file to server
         uses: wlixcc/SFTP-Deploy-Action@v1.2.4
         with:
