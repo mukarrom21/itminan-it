@@ -8,9 +8,13 @@ jobs:
     runs-on: ubuntu-latest
     name: build&deploy
     steps:
-      # To use this repository's private action, you must check out the repository
       - name: Checkout
-        uses: actions/checkout@v3 # Updated to v3
+        uses: actions/checkout@v3 # Ensure latest version
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
 
       - name: Install Dependencies
         run: yarn
